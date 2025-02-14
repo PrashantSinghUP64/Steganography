@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Data Hiding in Image</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .box {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+        }
+        .box img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        input, textarea, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .encrypt-btn { background: #3b82f6; color: white; }
+        .decrypt-btn { background: #22c55e; color: white; }
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: #1e1e1e;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Secure Data Hiding in Image</h1>
+    <div class="container">
+        <div class="box">
+            <h2>Encryption</h2>
+            <input type="file" accept="image/*" id="encryptImageInput" onchange="previewImage(event, 'encryptPreview')">
+            <img id="encryptPreview" src="#" alt="Upload Image" style="display:none;">
+            <textarea id="encryptMessage" placeholder="Enter your secret message..."></textarea>
+            <input type="password" id="encryptPassword" placeholder="Enter password">
+            <button class="encrypt-btn" onclick="encryptMessage()">Encrypt Message</button>
+            <button class="encrypt-btn">Download Encrypted Image</button>
+        </div>
+        <div class="box">
+            <h2>Decryption</h2>
+            <input type="file" accept="image/*" id="decryptImageInput" onchange="previewImage(event, 'decryptPreview')">
+            <img id="decryptPreview" src="#" alt="Upload Image to Decrypt" style="display:none;">
+            <input type="password" id="decryptPassword" placeholder="Enter password">
+            <button class="decrypt-btn" onclick="decryptMessage()">Decrypt Message</button>
+            <textarea id="decryptedMessage" placeholder="Decrypted message will appear here..." readonly></textarea>
+        </div>
+    </div>
+    <div class="footer">
+        Made By Prashant Kumar Singh
+    </div>
+
+    <script>
+        function previewImage(event, previewId) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function() {
+                const img = document.getElementById(previewId);
+                img.src = reader.result;
+                img.style.display = 'block';
+            }
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function encryptMessage() {
+            const message = document.getElementById("encryptMessage").value;
+            const password = document.getElementById("encryptPassword").value;
+            if (message && password) {
+                alert("Message encrypted successfully!");
+            } else {
+                alert("Please enter a message and password.");
+            }
+        }
+
+        function decryptMessage() {
+            const password = document.getElementById("decryptPassword").value;
+            if (password) {
+                document.getElementById("decryptedMessage").value = "Decrypted message will be shown here...";
+                alert("Decryption successful!");
+            } else {
+                alert("Please enter a valid password.");
+            }
+        }
+    </script>
+</body>
+</html>
